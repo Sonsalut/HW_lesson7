@@ -8,18 +8,21 @@
 import UIKit
 
 class ViewController: UIViewController {
-    let colors = [UIColor.red, UIColor.orange, UIColor.white, UIColor.yellow, UIColor.cyan]
+    var colors = [UIColor.red, UIColor.orange, UIColor.white, UIColor.yellow, UIColor.cyan]
+    
     @IBOutlet weak var colorChangeBtn: UIButton!
     @IBOutlet weak var myView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.view.backgroundColor = UIColor.darkGray
+        
         setupMyView()
         setupColorChangeBtn()
     }
     func setupMyView() {
-        myView.backgroundColor = UIColor.orange
+        myView.layer.cornerRadius = 10
+        myView.backgroundColor = colors.randomElement()!
     }
     func setupColorChangeBtn() {
         colorChangeBtn.tintColor = UIColor.white
@@ -28,6 +31,17 @@ class ViewController: UIViewController {
     }
 
     @IBAction func changeColor(_ sender: Any) {
+        var currentColor = colors.randomElement()!
+        var currentIndex = colors.firstIndex(of: currentColor)!
+        var maxIndex = colors.count - 1
+        if currentIndex < maxIndex {
+            myView.backgroundColor = colors[currentIndex + 1]
+        }
+        if currentIndex == maxIndex {
+            myView.backgroundColor = colors[0]
+        }
+
+
     }
     
 }
